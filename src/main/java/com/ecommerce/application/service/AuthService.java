@@ -21,8 +21,10 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final RefreshTokenService refreshTokenService;
+    private final EmailService emailService;
 
-    public AuthResponse register(RegisterRequest request) {
+    public TokenResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.email())) {
             throw new IllegalArgumentException("El email ya está registrado");
         }
@@ -36,26 +38,29 @@ public class AuthService {
                 .fullName(request.fullName())
                 .role(role)
                 .build();
-
         userRepository.save(user);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
-        String token = jwtService.generateToken(userDetails);
+        String accessToken = jwtService.generateToken(userDetails);
+        String refreshToken = refreshTokenService.createRefreshToken(user.getEmail());
 
-        return new AuthResponse(token, user.getEmail(), user.getRole().name());
+        emailService.sendWelcomeEmail(user.getEmail(), user.getFullName());
+
+        return new TokenResponse(accessToken, refreshToken, user.getEmail(), user.getRole().name());
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public TokenResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.email());
-        String token = jwtService.generateToken(userDetails);
-
         var user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        return new AuthResponse(token, user.getEmail(), user.getRole().name());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.email());
+        String accessToken = jwtService.generateToken(userDetails);
+        String refreshToken = refreshTokenService.createRefreshToken(user.getEmail());
+
+        return new TokenResponse(accessToken, refreshToken, user.getEmail(), user.getRole().name());
     }
 }

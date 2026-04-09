@@ -41,9 +41,10 @@ public class SecurityConfig {
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
 
-                // Swagger / OpenAPI
+                // Swagger
                 .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/swagger-resources/**").permitAll()
@@ -53,7 +54,10 @@ public class SecurityConfig {
 
                 // Solo USER autenticado
                 .requestMatchers("/api/cart/**").hasRole("USER")
+                .requestMatchers("/api/wishlist/**").hasRole("USER")
                 .requestMatchers("/api/orders/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/reviews").hasRole("USER")
+                .requestMatchers(HttpMethod.DELETE, "/api/reviews/**").hasRole("USER")
 
                 .anyRequest().authenticated()
             )
