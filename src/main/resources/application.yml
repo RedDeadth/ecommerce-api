@@ -19,6 +19,8 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+    clean-disabled: false
+    baseline-on-migrate: true
 
 jwt:
   secret: Y29tLmVjb21tZXJjZS5hcGkuc2VjcmV0LmtleS5mb3Iuand0LnRva2VuLmdlbmVyYXRpb24=
