@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
-@Tag(name = "Órdenes", description = "Checkout y historial de órdenes — requiere rol USER")
+@Tag(name = "5. Órdenes", description = "Checkout y historial de órdenes — requiere rol USER")
 public class OrderController {
 
     private final OrderService orderService;

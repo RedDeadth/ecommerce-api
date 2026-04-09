@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
-@Tag(name = "Carrito", description = "Carrito de compras — requiere rol USER")
+@Tag(name = "4. Carrito", description = "Carrito de compras — requiere rol USER")
 public class CartController {
 
     private final CartService cartService;
