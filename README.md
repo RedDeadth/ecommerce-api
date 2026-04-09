@@ -1,5 +1,11 @@
 # E-Commerce REST API 
 
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Hexagonal Architecture](https://img.shields.io/badge/Architecture-Hexagonal-8A2BE2?style=for-the-badge)
+
 [English](#english) | [Español](#español)
 
 ---
@@ -9,20 +15,22 @@
 
 ### Table of Contents
 1. [Overview](#overview)
-2. [Architecture](#architecture)
+2. [Architecture & Project Structure](#architecture--project-structure)
 3. [Enterprise Features](#enterprise-features)
 4. [Deployment & Execution](#deployment--execution)
 
 ### Overview
 Production-ready REST API for an E-Commerce platform, built following modern software engineering standards. It is designed to be highly scalable, secure, and easily maintainable.
 
-**Stack**: Java 21, Spring Boot 3.2, PostgreSQL 16, Docker, Flyway, JWT, Lombok, Swagger OpenAPI 3.
-
-### Architecture
+### Architecture & Project Structure
 The project strictly implements Hexagonal Architecture (Domain-Driven Design).
-- **Application**: Use cases, Services, and Request/Response DTOs.
-- **Domain**: Core business entities and Repository ports (Interfaces).
-- **Infrastructure**: Implementation details, including Security configurations, Web layer (Controllers), and persistence (JpaRepositories, Flyway migrations).
+
+```text
+com.ecommerce
+├── application/     # Use cases (Services) and DTOs (Request/Response)
+├── domain/          # Core business entities and Repository ports (Interfaces)
+└── infrastructure/  # Implementation details: Security, Web (Controllers), Flyway
+```
 
 ### Enterprise Features
 Unlike standard tutorial applications, this backend incorporates complex enterprise-level solutions:
@@ -55,25 +63,27 @@ Once the application is running, the interactive Swagger UI documentation is ava
 
 ### Índice
 1. [Visión General](#visión-general)
-2. [Arquitectura](#arquitectura)
+2. [Arquitectura y Estructura de Proyecto](#arquitectura-y-estructura-de-proyecto)
 3. [Características Empresariales](#características-empresariales)
 4. [Despliegue y Ejecución](#despliegue-y-ejecución)
 
 ### Visión General
 API REST lista para producción orientada a plataformas de E-Commerce, construida siguiendo estándares modernos de ingeniería de software. Está diseñada para ser altamente escalable, segura y fácil de mantener.
 
-**Stack**: Java 21, Spring Boot 3.2, PostgreSQL 16, Docker, Flyway, JWT, Lombok, Swagger OpenAPI 3.
-
-### Arquitectura
+### Arquitectura y Estructura de Proyecto
 El proyecto implementa estrictamente Arquitectura Hexagonal (Domain-Driven Design).
-- **Application**: Casos de uso, Servicios y DTOs de Petición/Respuesta.
-- **Domain**: Entidades centrales de negocio y Puertos de Repositorio (Interfaces).
-- **Infrastructure**: Detalles de implementación, incluyendo configuraciones de Seguridad, capa Web (Controladores) y persistencia (JpaRepositories, migraciones Flyway).
+
+```text
+com.ecommerce
+├── application/     # Casos de uso (Servicios) y DTOs (Request/Response)
+├── domain/          # Entidades centrales de negocio y Puertos de Repositorio (Interfaces)
+└── infrastructure/  # Detalles de implementación: Seguridad, capa Web (Controladores), Flyway
+```
 
 ### Características Empresariales
 A diferencia de aplicaciones tutoriales estándar, este backend incorpora soluciones complejas de nivel empresarial:
 - **Seguridad y Autorización**: Autenticación JWT Stateless con rotación de Refresh Tokens. Control de acceso basado en roles (ADMIN/USER).
-- **Limitación de Peticiones (Rate Limiting)**: Implementación de limitación de tasa (rate limiting) en memoria que previene abuso de la API, spam y posibles ataques DDoS en la capa de aplicación.
+- **Limitación de Peticiones (Rate Limiting)**: Implementación de limitación en memoria que previene abuso de la API, spam y posibles ataques DDoS en la capa de aplicación.
 - **Control de Concurrencia**: Bloqueo Optimista (Optimistic Locking) integrado en las entidades de base de datos. Previene condiciones de carrera o sobreventa (overselling) durante peticiones simultáneas de compra.
 - **Escalabilidad**: Paginación y filtrado escalables utilizando `Pageable` y `@Query`.
 - **Núcleo de E-Commerce**: Gestión de estado del carrito de compras, procesos de compra (checkout), aplicación de cupones con reglas de validación complejas, sistema de calificaciones, reseñas y listas de deseos (wishlists).
