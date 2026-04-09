@@ -1,0 +1,11 @@
+target/
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.log
+application-local.yml
