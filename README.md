@@ -1,74 +1,95 @@
-# 🛒 E-Commerce API REST (Producción)
+# E-Commerce REST API 
 
-![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Hexagonal Architecture](https://img.shields.io/badge/Architecture-Hexagonal-8A2BE2?style=for-the-badge)
-
-API REST Backend para un e-commerce construido para cumplir con todos los estándares modernos de ingeniería de software para despliegue en entornos de producción reales.
-
-## ✨ Características Avanzadas (Level "Senior")
-
-A diferencia de proyectos tutoriales básicos, este backend implementa:
-
-- 🏗️ **Arquitectura Hexagonal (Domain-Driven Design)**: Clara separación de responsabilidades entre Modelos de Dominio, Casos de Uso (Application) e Infraestructura (Web/Persistencia).
-- 🔒 **Seguridad y Autorización**:
-  - JWT Stateless + Rotación de Refresh Tokens.
-  - Roles (`ADMIN` / `USER`).
-  - **Rate Limiting** (prevención de spamming y DDoS en capa web).
-- 📦 **Control de Concurrencia**:
-  - Optimistic Locking (`@Version`) integrado.
-  - Previene "Race conditions" limitando la compra de stock sobrevendido al manejar transacciones críticas (Checkout simultáneo de producto agotándose).
-- 📊 **Modelado y Escalabilidad**:
-  - Filtros y Paginación escalable con `Pageable` y `@Query`.
-  - Migraciones de de base de datos automatizadas con **Flyway**.
-  - Documentación completa interactiva utilizando **Swagger OpenAPI 3**.
-- 🚀 **Features Core de un E-commerce**:
-  - Catálogo, Gestión de Carrito de Compras en memoria.
-  - Uso iterativo de Cupones, Wishlists (favoritos).
-  - Reseñas (Reviews) y sistemas de ranking promediados de productos.
+[English](#english) | [Español](#español)
 
 ---
 
-## 📂 Arquitectura (Hexagonal)
+<a name="english"></a>
+## 1. English
 
-El código se organiza estrictamente en capas:
-```
-com.ecommerce
-├── application/     # Casos de uso (Servicios) y DTOs (Request/Response)
-├── domain/          # Entidades de negocio centrales y Puertos (Repositorios Interfaces)
-└── infrastructure/  # Detalles de implementación: Seguridad, Web (Controladores), Flyway
-```
+### Table of Contents
+1. [Overview](#overview)
+2. [Architecture](#architecture)
+3. [Enterprise Features](#enterprise-features)
+4. [Deployment & Execution](#deployment--execution)
 
----
+### Overview
+Production-ready REST API for an E-Commerce platform, built following modern software engineering standards. It is designed to be highly scalable, secure, and easily maintainable.
 
-## 🛠️ Cómo Ejecutar (Local)
+**Stack**: Java 21, Spring Boot 3.2, PostgreSQL 16, Docker, Flyway, JWT, Lombok, Swagger OpenAPI 3.
 
-### 1️⃣ Usando Docker (Recomendado - Producción Config)
-Incluye una base de datos PostgreSQL orquestada.
+### Architecture
+The project strictly implements Hexagonal Architecture (Domain-Driven Design).
+- **Application**: Use cases, Services, and Request/Response DTOs.
+- **Domain**: Core business entities and Repository ports (Interfaces).
+- **Infrastructure**: Implementation details, including Security configurations, Web layer (Controllers), and persistence (JpaRepositories, Flyway migrations).
+
+### Enterprise Features
+Unlike standard tutorial applications, this backend incorporates complex enterprise-level solutions:
+- **Security & Authorization**: JWT Stateless authentication with Refresh Token rotation. Role-based access control (ADMIN/USER).
+- **Rate Limiting**: Custom in-memory rate limiting implementation preventing API abuse, spamming, and potential application-layer DDoS attacks.
+- **Concurrency Control**: Optimistic Locking integrated into the database entities. Prevents race conditions and overselling during simultaneous checkout requests.
+- **Scalability**: Scalable pagination and filtering using `Pageable` and `@Query`.
+- **E-Commerce Core**: Shopping cart state management, checkout processes, coupon application with complex validation rules, rate and review system, and user wishlists.
+- **CI/CD Integration**: Automated build and testing enabled via GitHub Actions.
+
+### Deployment & Execution
+
+#### Using Docker (Production Context)
 ```bash
 docker-compose up --build
 ```
 
-### 2️⃣ Usando Maven puro (Ambiente Dev con H2 db)
-La configuración de base de datos en memoria (H2) levantará y sembrará la info base (con un administrador ya existiendo).
+#### Using Maven (Development Context)
 ```bash
 ./mvnw spring-boot:run
 ```
 
+#### API Documentation
+Once the application is running, the interactive Swagger UI documentation is available at `http://localhost:8080/`. Default administrator credentials are `admin@ecommerce.com` / `admin123`.
+
 ---
 
-## 📖 Interactuando con la API interactiva (Swagger)
+<a name="español"></a>
+## 2. Español
 
-Una vez que la aplicación esté en marcha, navega a tu navegador y entra en: 
-**`http://localhost:8080/`** (te redirigirá a `/swagger-ui.html`).
+### Índice
+1. [Visión General](#visión-general)
+2. [Arquitectura](#arquitectura)
+3. [Características Empresariales](#características-empresariales)
+4. [Despliegue y Ejecución](#despliegue-y-ejecución)
 
-* **Credenciales de Administrador por defecto:**
-  * **Email**: `admin@ecommerce.com`
-  * **Password**: `admin123`
+### Visión General
+API REST lista para producción orientada a plataformas de E-Commerce, construida siguiendo estándares modernos de ingeniería de software. Está diseñada para ser altamente escalable, segura y fácil de mantener.
 
-### Flujo recomendado para Swagger:
-1. Ve al tag `Auth` y manda un request a `/api/auth/login`. Copia tu `accessToken`.
-2. Presiona el botón verde `Authorize` (`🔒`) situado en la franja alta y pega el token.
-3. Ahora puedes interactuar en vivo con `ADMIN - Productos` (CRUD), manejo de cupones, etc.
+**Stack**: Java 21, Spring Boot 3.2, PostgreSQL 16, Docker, Flyway, JWT, Lombok, Swagger OpenAPI 3.
+
+### Arquitectura
+El proyecto implementa estrictamente Arquitectura Hexagonal (Domain-Driven Design).
+- **Application**: Casos de uso, Servicios y DTOs de Petición/Respuesta.
+- **Domain**: Entidades centrales de negocio y Puertos de Repositorio (Interfaces).
+- **Infrastructure**: Detalles de implementación, incluyendo configuraciones de Seguridad, capa Web (Controladores) y persistencia (JpaRepositories, migraciones Flyway).
+
+### Características Empresariales
+A diferencia de aplicaciones tutoriales estándar, este backend incorpora soluciones complejas de nivel empresarial:
+- **Seguridad y Autorización**: Autenticación JWT Stateless con rotación de Refresh Tokens. Control de acceso basado en roles (ADMIN/USER).
+- **Limitación de Peticiones (Rate Limiting)**: Implementación de limitación de tasa (rate limiting) en memoria que previene abuso de la API, spam y posibles ataques DDoS en la capa de aplicación.
+- **Control de Concurrencia**: Bloqueo Optimista (Optimistic Locking) integrado en las entidades de base de datos. Previene condiciones de carrera o sobreventa (overselling) durante peticiones simultáneas de compra.
+- **Escalabilidad**: Paginación y filtrado escalables utilizando `Pageable` y `@Query`.
+- **Núcleo de E-Commerce**: Gestión de estado del carrito de compras, procesos de compra (checkout), aplicación de cupones con reglas de validación complejas, sistema de calificaciones, reseñas y listas de deseos (wishlists).
+- **Integración CI/CD**: Construcción y pruebas automatizadas habilitadas a través de GitHub Actions.
+
+### Despliegue y Ejecución
+
+#### Usando Docker (Contexto de Producción)
+```bash
+docker-compose up --build
+```
+
+#### Usando Maven (Contexto de Desarrollo)
+```bash
+./mvnw spring-boot:run
+```
+
+#### Documentación de la API
+Una vez que la aplicación esté en ejecución, la documentación interactiva Swagger UI estará disponible en `http://localhost:8080/`. Las credenciales de administrador por defecto son `admin@ecommerce.com` / `admin123`.

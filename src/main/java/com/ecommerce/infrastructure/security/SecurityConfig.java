@@ -36,23 +36,15 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-            .authorizeHttpRequests(auth -> auth
-                // Público
-                .requestMatchers("/").permitAll()
+            .authorizeHttpRequests(auth -> auth                .requestMatchers("/").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-
-                // Swagger
                 .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/swagger-resources/**").permitAll()
-
-                // Solo ADMIN
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                // Solo USER autenticado
                 .requestMatchers("/api/cart/**").hasRole("USER")
                 .requestMatchers("/api/wishlist/**").hasRole("USER")
                 .requestMatchers("/api/orders/**").hasAnyRole("USER", "ADMIN")

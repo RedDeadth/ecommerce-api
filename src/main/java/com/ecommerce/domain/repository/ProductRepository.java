@@ -12,12 +12,8 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByActiveTrue();
     List<Product> findByCategoryAndActiveTrue(String category);
-
-    // Paginación
     Page<Product> findByActiveTrue(Pageable pageable);
     Page<Product> findByCategoryAndActiveTrue(String category, Pageable pageable);
-
-    // Búsqueda avanzada
     @Query("SELECT p FROM Product p WHERE p.active = true " +
            "AND (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))) " +
            "AND (:category IS NULL OR p.category = :category) " +

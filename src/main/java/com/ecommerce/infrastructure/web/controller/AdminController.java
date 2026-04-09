@@ -21,8 +21,6 @@ public class AdminController {
     private final OrderService orderService;
     private final CouponService couponService;
 
-    // ─── 3. Admin — Productos ──────────────────────
-
     @GetMapping("/products")
     @Tag(name = "3. Admin — Productos")
     @Operation(summary = "Listar todos los productos", description = "Incluye inactivos")
@@ -52,8 +50,6 @@ public class AdminController {
         return ResponseEntity.noContent().build();
     }
 
-    // ─── 6. Admin — Órdenes ──────────────────────
-
     @GetMapping("/orders")
     @Tag(name = "6. Admin — Órdenes")
     @Operation(summary = "Ver todas las órdenes")
@@ -68,8 +64,6 @@ public class AdminController {
             @PathVariable Long id, @Valid @RequestBody OrderStatusRequest request) {
         return ResponseEntity.ok(orderService.updateStatus(id, request.status()));
     }
-
-    // ─── 7. Admin — Cupones ──────────────────────
 
     @GetMapping("/coupons")
     @Tag(name = "7. Admin — Cupones")

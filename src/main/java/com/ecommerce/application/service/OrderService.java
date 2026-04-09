@@ -44,8 +44,6 @@ public class OrderService {
             order.addItem(orderItem);
             total = total.add(product.getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity())));
         }
-
-        // Aplicar cupón si se proporcionó
         if (couponCode != null && !couponCode.isBlank()) {
             var coupon = couponService.validate(couponCode);
             if (total.compareTo(new BigDecimal(coupon.minPurchase().toString())) >= 0) {

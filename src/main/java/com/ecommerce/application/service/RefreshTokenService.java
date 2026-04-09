@@ -47,7 +47,6 @@ public class RefreshTokenService {
         var userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         var newAccessToken = jwtService.generateToken(userDetails);
 
-        // Rotar refresh token
         refreshToken.setRevoked(true);
         refreshTokenRepository.save(refreshToken);
         var newRefreshToken = createRefreshToken(user.getEmail());

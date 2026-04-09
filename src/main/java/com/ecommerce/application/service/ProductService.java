@@ -17,8 +17,6 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    // ── Paginación ──
     public Page<ProductResponse> getAllActivePaged(Pageable pageable) {
         return productRepository.findByActiveTrue(pageable).map(this::toResponse);
     }
@@ -27,8 +25,6 @@ public class ProductService {
                                         BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
         return productRepository.search(name, category, minPrice, maxPrice, pageable).map(this::toResponse);
     }
-
-    // ── Sin paginación (backward compatible) ──
     public List<ProductResponse> getAllActive() {
         return productRepository.findByActiveTrue().stream().map(this::toResponse).toList();
     }
