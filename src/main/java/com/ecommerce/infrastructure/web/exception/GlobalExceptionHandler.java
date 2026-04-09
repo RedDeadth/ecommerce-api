@@ -1,5 +1,6 @@
 package com.ecommerce.infrastructure.web.exception;
 
+import jakarta.persistence.OptimisticLockException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,6 +24,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Map<String, Object>> handleBadCredentials(BadCredentialsException ex) {
         return buildResponse(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
+    }
+
+    @ExceptionHandler(OptimisticLockException.class)
+    public ResponseEntity<Map<String, Object>> handleOptimisticLock(OptimisticLockException ex) {
+        return buildResponse(HttpStatus.CONFLICT,
+                "Conflicto de concurrencia: otro usuario modificó este recurso. Intenta de nuevo.");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
