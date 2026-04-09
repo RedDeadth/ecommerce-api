@@ -13,12 +13,6 @@
 <a name="english"></a>
 ## 1. English
 
-### Table of Contents
-1. [Overview](#overview)
-2. [Architecture & Project Structure](#architecture--project-structure)
-3. [Enterprise Features](#enterprise-features)
-4. [Deployment & Execution](#deployment--execution)
-
 ### Overview
 Production-ready REST API for an E-Commerce platform, built following modern software engineering standards. It is designed to be highly scalable, secure, and easily maintainable.
 
@@ -27,9 +21,16 @@ The project strictly implements Hexagonal Architecture (Domain-Driven Design).
 
 ```text
 com.ecommerce
-├── application/     # Use cases (Services) and DTOs (Request/Response)
-├── domain/          # Core business entities and Repository ports (Interfaces)
-└── infrastructure/  # Implementation details: Security, Web (Controllers), Flyway
+├── application/         # Application Layer (Use Cases)
+│   ├── dto/             # Request/Response Data Transfer Objects
+│   └── service/         # Business logic orchestration and core rules
+├── domain/              # Domain Layer (Enterprise Logic)
+│   ├── model/           # Core Entities (Product, Order, User, etc.)
+│   └── repository/      # Repository Interfaces (Ports)
+└── infrastructure/      # Infrastructure Layer (Tech Details)
+    ├── persistence/     # Database seeding and initialization
+    ├── security/        # JWT Filters, Rate Limiting, UserDetailsService
+    └── web/             # Spring MVC REST Controllers and Exception Handlers
 ```
 
 ### Enterprise Features
@@ -61,12 +62,6 @@ Once the application is running, the interactive Swagger UI documentation is ava
 <a name="español"></a>
 ## 2. Español
 
-### Índice
-1. [Visión General](#visión-general)
-2. [Arquitectura y Estructura de Proyecto](#arquitectura-y-estructura-de-proyecto)
-3. [Características Empresariales](#características-empresariales)
-4. [Despliegue y Ejecución](#despliegue-y-ejecución)
-
 ### Visión General
 API REST lista para producción orientada a plataformas de E-Commerce, construida siguiendo estándares modernos de ingeniería de software. Está diseñada para ser altamente escalable, segura y fácil de mantener.
 
@@ -75,9 +70,16 @@ El proyecto implementa estrictamente Arquitectura Hexagonal (Domain-Driven Desig
 
 ```text
 com.ecommerce
-├── application/     # Casos de uso (Servicios) y DTOs (Request/Response)
-├── domain/          # Entidades centrales de negocio y Puertos de Repositorio (Interfaces)
-└── infrastructure/  # Detalles de implementación: Seguridad, capa Web (Controladores), Flyway
+├── application/         # Capa de Aplicación (Casos de Uso)
+│   ├── dto/             # Objetos de Transferencia de Datos (Request/Response)
+│   └── service/         # Orquestación de lógica de negocio y reglas core
+├── domain/              # Capa de Dominio (Lógica Empresarial)
+│   ├── model/           # Entidades Centrales (Product, Order, User, etc.)
+│   └── repository/      # Interfaces de Repositorios (Puertos/Ports)
+└── infrastructure/      # Capa de Infraestructura (Detalles Tecnológicos)
+    ├── persistence/     # Inicialización y sembrado de base de datos
+    ├── security/        # Filtros JWT, Rate Limiting, UserDetailsService
+    └── web/             # Controladores REST MVC y Manejadores de Excepciones
 ```
 
 ### Características Empresariales
